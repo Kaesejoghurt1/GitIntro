@@ -59,3 +59,7 @@ dkms.conf
 
 # Demo exception
 !doxygen.exe
+!doxyindexer.exe
+!doxysearch.cgi.exe
+!doxywizard.exe
+!libclang.dll
