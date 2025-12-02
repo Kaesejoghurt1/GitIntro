@@ -57,6 +57,8 @@ dkms.conf
 .clangd
 .cssproject
 
+docs/
+
 # Demo exception
 !doxygen.exe
 !doxyindexer.exe
