@@ -35,20 +35,19 @@
 //#############################################################################
 
 #include "driverlib.h"
-#include "device.h"
 #define L 10
-#define T 500000
 void Funktion1(void);
+#include "device.h"
+#define T 500000
+void Funktion2(uint32_t pin, uint32_t z, uint16_t count);
 void main(void)
 {
 
     for(;;)
     {
         Funktion1();
-        GPIO_writePin(DEVICE_GPIO_PIN_LED1, 0);
-        DEVICE_DELAY_US(T);
-        GPIO_writePin(DEVICE_GPIO_PIN_LED1, 1);
-        DEVICE_DELAY_US(T);
+        Funktion2(DEVICE_GPIO_PIN_LED1, T, 5);
+        DEVICE_DELAY_US(3 * T); 
     }
 }
 void Funktion1(void){
@@ -59,4 +58,15 @@ void Funktion1(void){
     Interrupt_initModule();
     Interrupt_initVectorTable();
     EINT;ERTM;
+}
+void Funktion2(uint32_t pin, uint32_t z, uint16_t count)
+{
+    for(uint16_t i = 0; i < count; i++)
+    {
+        GPIO_writePin(pin, 0);
+        DEVICE_DELAY_US(z);
+
+        GPIO_writePin(pin, 1);
+        DEVICE_DELAY_US(z);
+    }
 }

@@ -62,7 +62,11 @@
 // Defines
 //
 # define LOOP_COUNT 10
-
+#define BLINK_DELAY 10
+//
+// Prototypes
+//
+void BlinkeLED(uint32_t pin, uint32_t delay_us, uint16_t count);
 
 /**
  * @brief Main function to blink an LED.
@@ -109,20 +113,13 @@ void main(void)
     //
     for(;;)
     {
-        //
-        //! Turn on LED
-        //
-        GPIO_writePin(DEVICE_GPIO_PIN_LED1, 0);
+
+
 
         //
-        //! Delay for a bit.
+        //! Führe Blinksequenz aus
         //
-        DEVICE_DELAY_US(500000);
-
-        //
-        //! Turn off LED
-        //
-        GPIO_writePin(DEVICE_GPIO_PIN_LED1, 1);
+        BlinkeLED(DEVICE_GPIO_PIN_LED1, BLINK_DELAY, LOOP_COUNT);
 
         //
         //! Delay for a bit.
@@ -131,6 +128,23 @@ void main(void)
     }
 }
 
+/**
+ * Funktion die Blinksequenz ausführt
+ * pin       = GPIO-Pin der LED
+ * delay_us  = Verzögerungszeit in Mikrosekunden
+ * count     = Anzahl der Blinkzyklen
+ */
+void BlinkeLED(uint32_t pin, uint32_t delay_us, uint16_t count)
+{
+    for(uint16_t i = 0; i < count; i++)
+    {
+        GPIO_writePin(pin, 0);
+        DEVICE_DELAY_US(delay_us);
+
+        GPIO_writePin(pin, 1);
+        DEVICE_DELAY_US(delay_us);
+    }
+}
 //
 // End of File
 //
